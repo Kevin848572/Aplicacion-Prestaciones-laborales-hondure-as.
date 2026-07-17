@@ -1,30 +1,50 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistema Digital de Liquidación y Prestaciones Laborales</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <script>if (localStorage.getItem("ch-logged") !== "true") { window.location.replace("login.html"); }</script>
 </head>
 <body>
+
+  <!-- M STRIPE DIVIDER (TOP) -->
+  <div class="m-stripe">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- GOLD ACCENT BAR -->
+  <div class="gold-bar"></div>
 
   <!-- ENCABEZADO CORPORATIVO -->
   <header class="header" id="header">
     <div class="container">
       <div class="header__inner">
-        <div class="header__logo-area">
-          <div class="header__logo-icon">CH</div>
-          <div>
-            <h1 class="header__company">Cervecería Hondureña, S.A.</h1>
-            <p class="header__slogan">Sistema Digital de Liquidación y Prestaciones Laborales</p>
-          </div>
+        <div class="header__left">
+          <a href="https://www.unah.edu.hn" target="_blank" rel="noopener">
+            <img src="img/logo_UNAH.png" alt="UNAH" class="header__logo-img">
+          </a>
+        </div>
+        <div class="header__center">
+          <h1 class="header__company">Cervecería Hondureña, S.A.</h1>
+          <p class="header__slogan">Sistema Digital de Liquidación y Prestaciones Laborales</p>
+        </div>
+        <div class="header__right">
+          <a href="https://www.cerveceriahondurena.com" target="_blank" rel="noopener">
+            <img src="img/logo_ceververia_piepagina.png" alt="Cervecería Hondureña" class="header__logo-img">
+          </a>
+          <button class="btn btn--outline header__logout" id="btnLogout">Cerrar Sesión</button>
         </div>
       </div>
     </div>
   </header>
+
+  <!-- GOLD ACCENT BAR -->
+  <div class="gold-bar"></div>
 
   <main class="main container">
 
@@ -159,7 +179,7 @@
         <!-- MEMBRETE / ENCABEZADO DEL REPORTE -->
         <div class="reporte__header">
           <div class="reporte__brand">
-            <div class="reporte__logo">CH</div>
+            <img src="img/logocerveria.png" alt="CH" class="reporte__logo-img">
             <div>
               <h2>Cervecería Hondureña, S.A.</h2>
               <p>Liquidación de Prestaciones Laborales</p>
@@ -254,10 +274,34 @@
 
   </main>
 
+  <!-- GOLD ACCENT BAR -->
+  <div class="gold-bar"></div>
+
+  <!-- PATROCINADORES -->
+  <section class="sponsors">
+    <div class="container">
+      <h3 class="sponsors__title">Patrocinado por</h3>
+      <div class="sponsors__grid">
+        <a href="https://www.unah.edu.hn" target="_blank" rel="noopener" class="sponsor-card">
+          <img src="img/logo_UNAH_piepagina.png" alt="UNAH" class="sponsor-card__img">
+        </a>
+        <a href="https://www.cerveceriahondurena.com" target="_blank" rel="noopener" class="sponsor-card">
+          <img src="img/logo_ceververia_piepagina.png" alt="Cervecería Hondureña" class="sponsor-card__img">
+        </a>
+        <a href="https://www.instagram.com/fceac.unah/?hl=es" target="_blank" rel="noopener" class="sponsor-card">
+          <img src="img/logo_facultada.png" alt="Facultad" class="sponsor-card__img">
+        </a>
+        <a href="https://www.instagram.com/infoadminunah/" target="_blank" rel="noopener" class="sponsor-card">
+          <img src="img/logo_carrera.png" alt="Carrera" class="sponsor-card__img">
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- PIE DE PÁGINA -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2025 Cervecería Hondureña, S.A. &mdash; Sistema Digital de Liquidación y Prestaciones Laborales &bull; Código de Trabajo de Honduras</p>
+      <p>&copy; 2025 Cervecería Hondureña, S.A. — Sistema Digital de Liquidación y Prestaciones Laborales • Código de Trabajo de Honduras</p>
     </div>
   </footer>
 

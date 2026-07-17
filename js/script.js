@@ -731,9 +731,10 @@
   function salir() {
     mostrarModal(
       "Salir del sistema",
-      "¿Está seguro de que desea cerrar esta ventana?",
+      "¿Está seguro de que desea cerrar la sesión?",
       function () {
-        window.close();
+        localStorage.removeItem("ch-logged");
+        window.location.replace("login.html");
       }
     );
   }
@@ -754,40 +755,6 @@
   function ocultarModal() {
     $("modalOverlay").style.display = "none";
     modalCallback = null;
-  }
-
-  /* ================================================================
-   *  EVENT LISTENERS
-   * ================================================================ */
-
-  function init() {
-    // Botones principales
-    $("btnCalcular").addEventListener("click", calcularPrestaciones);
-    $("btnNuevo").addEventListener("click", nuevoCalculo);
-    $("btnExportar").addEventListener("click", exportarReporte);
-    $("btnSalir").addEventListener("click", salir);
-    $("btnExportar2").addEventListener("click", exportarReporte);
-
-    // Modal
-    $("modalConfirm").addEventListener("click", function () {
-      if (typeof modalCallback === "function") {
-        modalCallback();
-      }
-      ocultarModal();
-    });
-
-    $("modalCancel").addEventListener("click", ocultarModal);
-    $("modalOverlay").addEventListener("click", function (e) {
-      if (e.target === this) ocultarModal();
-    });
-
-    // Cálculo automático de antigüedad al cambiar fechas
-    $("fechaIngreso").addEventListener("change", actualizarAntiguedad);
-    $("fechaFin").addEventListener("change", actualizarAntiguedad);
-
-    // Cálculo automático de vacaciones pendientes
-    $("fechaIngreso").addEventListener("change", actualizarVacPendientes);
-    $("fechaFin").addEventListener("change", actualizarVacPendientes);
   }
 
   /* ================================================================
@@ -849,8 +816,51 @@
   }
 
   /* ================================================================
+   *  THEME TOGGLE — DARK / LIGHT
+   * ================================================================ */
+
+  function initTheme() {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+
+  /* ================================================================
    *  INICIALIZAR AL CARGAR EL DOM
    * ================================================================ */
+
+  function init() {
+    initTheme();
+
+    // Logout
+    $("btnLogout").addEventListener("click", salir);
+
+    // Botones principales
+    $("btnCalcular").addEventListener("click", calcularPrestaciones);
+    $("btnNuevo").addEventListener("click", nuevoCalculo);
+    $("btnExportar").addEventListener("click", exportarReporte);
+    $("btnSalir").addEventListener("click", salir);
+    $("btnExportar2").addEventListener("click", exportarReporte);
+
+    // Modal
+    $("modalConfirm").addEventListener("click", function () {
+      if (typeof modalCallback === "function") {
+        modalCallback();
+      }
+      ocultarModal();
+    });
+
+    $("modalCancel").addEventListener("click", ocultarModal);
+    $("modalOverlay").addEventListener("click", function (e) {
+      if (e.target === this) ocultarModal();
+    });
+
+    // Cálculo automático de antigüedad al cambiar fechas
+    $("fechaIngreso").addEventListener("change", actualizarAntiguedad);
+    $("fechaFin").addEventListener("change", actualizarAntiguedad);
+
+    // Cálculo automático de vacaciones pendientes
+    $("fechaIngreso").addEventListener("change", actualizarVacPendientes);
+    $("fechaFin").addEventListener("change", actualizarVacPendientes);
+  }
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
