@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Digital de Liquidación y Prestaciones Laborales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ENCABEZADO CORPORATIVO -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header__inner">
+        <div class="header__logo-area">
+          <div class="header__logo-icon">CH</div>
+          <div>
+            <h1 class="header__company">Cervecería Hondureña, S.A.</h1>
+            <p class="header__slogan">Sistema Digital de Liquidación y Prestaciones Laborales</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main container">
+
+    <!-- FORMULARIO PRINCIPAL -->
+    <section class="form-section" id="formSection">
+      <div class="form-section__header">
+        <h2>Datos para el Cálculo de Liquidación</h2>
+        <p>Complete todos los campos obligatorios para generar el reporte de prestaciones conforme al Código de Trabajo de Honduras.</p>
+      </div>
+
+      <form id="liquidacionForm" novalidate>
+        <div class="form-grid">
+
+          <!-- COLUMNA 1: Datos del Empleado -->
+          <div class="form-column">
+            <h3 class="form-column__title">Datos del Empleado</h3>
+
+            <div class="form-group">
+              <label for="codigo">Código de empleado <span class="required">*</span></label>
+              <input type="text" id="codigo" placeholder="CH-0000" required>
+            </div>
+
+            <div class="form-group">
+              <label for="nombre">Nombre completo <span class="required">*</span></label>
+              <input type="text" id="nombre" placeholder="Nombres y apellidos" required>
+            </div>
+
+            <div class="form-group">
+              <label for="identidad">Número de identidad <span class="required">*</span></label>
+              <input type="text" id="identidad" placeholder="0000-0000-00000" required>
+            </div>
+
+            <div class="form-group">
+              <label for="puesto">Puesto de trabajo <span class="required">*</span></label>
+              <select id="puesto" required>
+                <option value="">Seleccione un puesto</option>
+                <option value="Operador de Planta">Operador de Planta</option>
+                <option value="Analista de Logística">Analista de Logística</option>
+                <option value="Supervisor de Ventas">Supervisor de Ventas</option>
+                <option value="Coordinador de Producción">Coordinador de Producción</option>
+                <option value="Técnico de Mantenimiento">Técnico de Mantenimiento</option>
+                <option value="Jefe de Distribución">Jefe de Distribución</option>
+                <option value="Asistente Administrativo">Asistente Administrativo</option>
+                <option value="Gerente de Planta">Gerente de Planta</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="departamento">Departamento <span class="required">*</span></label>
+              <select id="departamento" required>
+                <option value="">Seleccione un departamento</option>
+                <option value="Producción">Producción</option>
+                <option value="Distribución">Distribución</option>
+                <option value="Administración">Administración</option>
+                <option value="Ventas">Ventas</option>
+                <option value="Recursos Humanos">Recursos Humanos</option>
+                <option value="Logística">Logística</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="contrato">Tipo de contrato <span class="required">*</span></label>
+              <select id="contrato" required>
+                <option value="">Seleccione el tipo</option>
+                <option value="Indefinido">Indefinido</option>
+                <option value="Plazo Fijo">Plazo Fijo</option>
+                <option value="Por Obra">Por Obra</option>
+                <option value="Período de Prueba">Período de Prueba</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- COLUMNA 2: Información Laboral -->
+          <div class="form-column">
+            <h3 class="form-column__title">Información Laboral</h3>
+
+            <div class="form-group">
+              <label for="salario">Salario mensual ordinario (L) <span class="required">*</span></label>
+              <input type="number" id="salario" min="1" step="0.01" placeholder="0.00" required>
+            </div>
+
+            <div class="form-group">
+              <label for="motivo">Motivo de finalización <span class="required">*</span></label>
+              <select id="motivo" required>
+                <option value="">Seleccione el motivo</option>
+                <option value="Despido injustificado">Despido Injustificado</option>
+                <option value="Renuncia">Renuncia Voluntaria</option>
+                <option value="Mutuo acuerdo">Mutuo Acuerdo</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="fechaIngreso">Fecha de ingreso <span class="required">*</span></label>
+              <input type="date" id="fechaIngreso" required>
+            </div>
+
+            <div class="form-group">
+              <label for="fechaFin">Fecha de finalización <span class="required">*</span></label>
+              <input type="date" id="fechaFin" required>
+            </div>
+
+            <div class="form-group">
+              <label for="vacPendientes">Vacaciones pendientes (días)</label>
+              <input type="number" id="vacPendientes" min="0" step="1" value="0" placeholder="0">
+              <span class="form-help">Se calcula automáticamente. Puede ajustarlo manualmente.</span>
+            </div>
+
+            <div class="form-group">
+              <label>Antigüedad laboral</label>
+              <div class="antiguedad-display" id="antiguedadDisplay">
+                <span class="antiguedad-display__value">—</span>
+                <span class="antiguedad-display__label">años &nbsp;·&nbsp; meses &nbsp;·&nbsp; días</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BARRA DE BOTONES -->
+        <div class="form-actions">
+          <button type="button" class="btn btn--primary" id="btnCalcular">Calcular Prestaciones</button>
+          <button type="button" class="btn btn--secondary" id="btnNuevo">Nuevo Cálculo</button>
+          <button type="button" class="btn btn--outline" id="btnExportar" disabled>Exportar Reporte</button>
+          <button type="button" class="btn btn--danger" id="btnSalir">Salir</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- REPORTE DE LIQUIDACIÓN -->
+    <section class="reporte-section" id="reporteSection" style="display:none;">
+      <div class="reporte" id="reporteContent">
+
+        <!-- MEMBRETE / ENCABEZADO DEL REPORTE -->
+        <div class="reporte__header">
+          <div class="reporte__brand">
+            <div class="reporte__logo">CH</div>
+            <div>
+              <h2>Cervecería Hondureña, S.A.</h2>
+              <p>Liquidación de Prestaciones Laborales</p>
+            </div>
+          </div>
+          <div class="reporte__folio" id="reporteFolio"></div>
+        </div>
+
+        <!-- DATOS DEL TRABAJADOR -->
+        <div class="reporte__datos">
+          <table class="reporte__table reporte__table--datos">
+            <tr>
+              <th>Código</th>
+              <td id="rCodigo"></td>
+              <th>Nombre</th>
+              <td id="rNombre"></td>
+            </tr>
+            <tr>
+              <th>Identidad</th>
+              <td id="rIdentidad"></td>
+              <th>Puesto</th>
+              <td id="rPuesto"></td>
+            </tr>
+            <tr>
+              <th>Departamento</th>
+              <td id="rDepartamento"></td>
+              <th>Contrato</th>
+              <td id="rContrato"></td>
+            </tr>
+            <tr>
+              <th>Motivo de finalización</th>
+              <td id="rMotivo"></td>
+              <th>Antigüedad</th>
+              <td id="rAntiguedad"></td>
+            </tr>
+            <tr>
+              <th>Salario Mensual</th>
+              <td id="rSalario"></td>
+              <th>Vac. pendientes</th>
+              <td id="rVacPend"></td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- DETALLE DE CÁLCULOS -->
+        <div class="reporte__detalle">
+          <h3 class="reporte__subtitle">Detalle de Prestaciones Calculadas</h3>
+          <table class="reporte__table reporte__table--calc" id="tablaCalculos">
+            <thead>
+              <tr>
+                <th style="width:40%;">Concepto</th>
+                <th style="width:38%;">Fórmula aplicada</th>
+                <th style="width:22%;">Monto (L)</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyCalculos">
+              <!-- generado por JS -->
+            </tbody>
+            <tfoot>
+              <tr class="reporte__total-row">
+                <td colspan="2"><strong>TOTAL GENERAL</strong></td>
+                <td id="totalGeneral"><strong>L 0.00</strong></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <!-- PIE DE FIRMAS -->
+        <div class="reporte__firmas">
+          <div class="reporte__firma">
+            <span class="reporte__linea"></span>
+            <p>Firma del Empleado</p>
+          </div>
+          <div class="reporte__firma">
+            <span class="reporte__linea"></span>
+            <p>Firma del Representante Legal</p>
+          </div>
+          <div class="reporte__firma">
+            <span class="reporte__linea"></span>
+            <p>Sello de la Empresa</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTONES DEL REPORTE -->
+      <div class="reporte__actions">
+        <button type="button" class="btn btn--primary" onclick="window.print()">Imprimir Reporte</button>
+        <button type="button" class="btn btn--outline" id="btnExportar2">Exportar como texto</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Cervecería Hondureña, S.A. &mdash; Sistema Digital de Liquidación y Prestaciones Laborales &bull; Código de Trabajo de Honduras</p>
+    </div>
+  </footer>
+
+  <!-- MODAL DE CONFIRMACIÓN (OCULTO) -->
+  <div class="modal-overlay" id="modalOverlay" style="display:none;">
+    <div class="modal">
+      <div class="modal__icon">&#9888;</div>
+      <h3 class="modal__title" id="modalTitle">Confirmar</h3>
+      <p class="modal__message" id="modalMessage">¿Está seguro de que desea continuar?</p>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--secondary" id="modalCancel">Cancelar</button>
+        <button type="button" class="btn btn--primary" id="modalConfirm">Aceptar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
