@@ -482,6 +482,28 @@ body > * {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2398a2b3'/%3E%3C/svg%3E");
 }
 
+.form-group input[type="date"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  min-height: 2.5rem;
+  color-scheme: dark;
+}
+
+[data-theme="light"] .form-group input[type="date"] {
+  color-scheme: light;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 0.25rem;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
 .form-group input::placeholder {
   color: var(--muted);
   font-weight: 300;
@@ -1130,16 +1152,100 @@ body > * {
 }
 
 /* ==================================================================
+   LOGIN RESPONSIVE
+   ================================================================== */
+
+@media (max-width: 480px) {
+  body:has(.login-page) {
+    padding: 1rem !important;
+  }
+
+  .login-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .login-card__header {
+    margin-bottom: 1.25rem;
+  }
+
+  .login-card__logos {
+    gap: 1rem;
+  }
+
+  .login-card__logo {
+    height: 48px;
+  }
+
+  .login-card__title {
+    font-size: 1rem;
+  }
+
+  .login-card__desc {
+    font-size: 0.75rem;
+  }
+}
+
+/* ==================================================================
    RESPONSIVE
    ================================================================== */
+
+/* Tablet landscape / small desktop */
+@media (max-width: 1024px) {
+  .header__logo-img {
+    height: 64px;
+  }
+
+  .header__company {
+    font-size: 1rem;
+  }
+}
+
+/* Tablet portrait */
 @media (max-width: 820px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .main {
+    padding: 1.5rem 1rem 2rem;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
+  }
+
+  .form-section {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .form-section__header h2 {
+    font-size: 1.1rem;
+  }
+
+  .form-section__header p {
+    margin-left: 0;
+    font-size: 0.78rem;
+  }
+
+  .form-section__header h2::before {
+    width: 3px;
+    height: 1em;
+    margin-right: 0.5rem;
   }
 
   .reporte {
     padding: 1.25rem;
+  }
+
+  .reporte__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .reporte__brand h2 {
+    font-size: 0.9rem;
   }
 
   .reporte__firmas {
@@ -1149,6 +1255,7 @@ body > * {
   .header__inner {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 0.5rem;
   }
 
   .header__left { order: 1; }
@@ -1157,10 +1264,14 @@ body > * {
     width: 100%;
     text-align: center;
   }
-  .header__right { order: 2; }
+  .header__right {
+    order: 2;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
 
   .header__logo-img {
-    height: 60px;
+    height: 55px;
   }
 
   .form-actions {
@@ -1170,54 +1281,246 @@ body > * {
   .form-actions .btn {
     width: 100%;
   }
+
+  .sponsors__grid {
+    max-width: 400px;
+  }
 }
 
-@media (max-width: 540px) {
+/* Large phones */
+@media (max-width: 600px) {
   .header__company {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
   }
 
   .header__slogan {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
   }
 
   .header__logo-img {
-    height: 48px;
+    height: 42px;
   }
 
-  .sponsor-card__img {
-    max-height: 70px;
+  .header__logout {
+    font-size: 0.55rem;
+    padding: 0.2rem 0.5rem;
+    height: 24px;
   }
 
   .form-section {
-    padding: 1rem;
+    padding: 1rem 0.875rem;
+  }
+
+  .form-section__header h2 {
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+  }
+
+  .form-section__header p {
+    font-size: 0.72rem;
+  }
+
+  .form-column__title {
+    font-size: 0.68rem;
+  }
+
+  .form-group label {
+    font-size: 0.68rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  .btn {
+    font-size: 0.72rem;
+    padding: 0.6rem 1rem;
+    height: 44px;
+    letter-spacing: 1px;
   }
 
   .reporte {
-    padding: 1rem;
+    padding: 0.875rem;
   }
 
   .reporte__header {
-    flex-direction: column;
-    align-items: flex-start;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .reporte__brand {
+    gap: 0.6rem;
+  }
+
+  .reporte__logo-img {
+    height: 48px;
+  }
+
+  .reporte__brand h2 {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  .reporte__brand p {
+    font-size: 0.65rem;
+  }
+
+  .reporte__folio {
+    font-size: 0.65rem;
+  }
+
+  .reporte__table {
+    font-size: 0.72rem;
+  }
+
+  .reporte__table--datos th,
+  .reporte__table--datos td {
+    padding: 0.3rem 0.4rem;
+  }
+
+  .reporte__table--datos th {
+    font-size: 0.62rem;
+    width: 30%;
+  }
+
+  .reporte__table--calc th,
+  .reporte__table--calc td {
+    font-size: 0.68rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .reporte__subtitle {
+    font-size: 0.75rem;
+  }
+
+  .reporte__total-row td {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  .reporte__total-row td:last-child {
+    font-size: 0.9rem;
   }
 
   .reporte__firmas {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .reporte__actions {
+    flex-direction: column;
+  }
+
+  .reporte__actions .btn {
+    width: 100%;
+  }
+
+  .sponsor-card {
+    min-height: 80px;
+    padding: 0.25rem;
+  }
+
+  .sponsor-card__img {
+    max-height: 60px;
   }
 
   .footer__logos {
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .footer__logo-img {
-    height: 24px;
+    height: 22px;
   }
 
-  .reporte__table--calc th,
-  .reporte__table--calc td {
-    font-size: 0.72rem;
-    padding: 0.4rem 0.5rem;
+  .footer p {
+    font-size: 0.62rem;
+  }
+
+  .modal {
+    padding: 1.5rem 1.25rem 1.25rem;
+  }
+
+  .modal__title {
+    font-size: 0.9rem;
+  }
+
+  .modal__message {
+    font-size: 0.78rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 400px) {
+  .container {
+    padding: 0 0.625rem;
+  }
+
+  .main {
+    padding: 1rem 0.625rem 1.5rem;
+  }
+
+  .header__inner {
+    gap: 0.25rem;
+  }
+
+  .header__logo-img {
+    height: 34px;
+  }
+
+  .header__company {
+    font-size: 0.75rem;
+  }
+
+  .header__slogan {
+    font-size: 0.55rem;
+  }
+
+  .form-section {
+    padding: 0.75rem 0.625rem;
+  }
+
+  .form-section__header h2 {
+    font-size: 0.82rem;
+  }
+
+  .form-column__title {
+    font-size: 0.62rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.78rem;
+  }
+
+  .btn {
+    font-size: 0.65rem;
+    padding: 0.5rem 0.75rem;
+    height: 40px;
+  }
+
+  .reporte {
+    padding: 0.625rem;
+  }
+
+  .reporte__logo-img {
+    height: 40px;
+  }
+
+  .antiguedad-display {
+    padding: 0.5rem 0.625rem;
+  }
+
+  .antiguedad-display__value {
+    font-size: 0.95rem;
   }
 }
