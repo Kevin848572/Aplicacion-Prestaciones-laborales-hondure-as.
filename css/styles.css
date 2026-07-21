@@ -328,6 +328,31 @@ body > * {
   padding: 0.4rem 0;
 }
 
+.login-success {
+  font-size: 0.82rem;
+  color: var(--success);
+  font-weight: 400;
+  text-align: center;
+  padding: 0.4rem 0;
+}
+
+.login-toggle {
+  text-align: center;
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+}
+
+.login-toggle a {
+  color: var(--accent-gold);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.login-toggle a:hover {
+  color: var(--accent-gold-dim);
+  text-decoration: underline;
+}
+
 /* ==================================================================
    FORM SECTION
    ================================================================== */

@@ -49,6 +49,7 @@
         <p class="login-card__desc">Ingrese sus credenciales para acceder al sistema de liquidación de prestaciones laborales</p>
       </div>
 
+      <!-- LOGIN FORM -->
       <form id="loginForm" class="login-form" autocomplete="off">
         <div class="form-group">
           <label for="loginUser">Usuario</label>
@@ -60,6 +61,27 @@
         </div>
         <div class="login-error" id="loginError" style="display:none;">Usuario o contraseña incorrectos</div>
         <button type="submit" class="btn btn--primary login-form__btn">Acceder</button>
+        <p class="login-toggle"><a href="#" id="showRegister">¿No tienes cuenta? Regístrate</a></p>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="registerForm" class="login-form" style="display:none;" autocomplete="off">
+        <div class="form-group">
+          <label for="regUser">Nuevo usuario</label>
+          <input type="text" id="regUser" placeholder="elija un usuario" required>
+        </div>
+        <div class="form-group">
+          <label for="regPass">Contraseña</label>
+          <input type="password" id="regPass" placeholder="elija una contraseña" required>
+        </div>
+        <div class="form-group">
+          <label for="regPass2">Confirmar contraseña</label>
+          <input type="password" id="regPass2" placeholder="repita la contraseña" required>
+        </div>
+        <div class="login-error" id="regError" style="display:none;"></div>
+        <div class="login-success" id="regSuccess" style="display:none;"></div>
+        <button type="submit" class="btn btn--primary login-form__btn">Crear cuenta</button>
+        <p class="login-toggle"><a href="#" id="showLogin">¿Ya tienes cuenta? Inicia sesión</a></p>
       </form>
     </div>
 
@@ -70,7 +92,41 @@
   </div>
 
   <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
+    var users = JSON.parse(localStorage.getItem("ch-users") || "[]");
+
+    function saveUsers() {
+      localStorage.setItem("ch-users", JSON.stringify(users));
+    }
+
+    function hide(el) { el.style.display = "none"; }
+    function show(el, type) { el.style.display = type || "block"; }
+
+    var loginForm   = document.getElementById("loginForm");
+    var registerForm= document.getElementById("registerForm");
+    var loginError  = document.getElementById("loginError");
+    var regError    = document.getElementById("regError");
+    var regSuccess  = document.getElementById("regSuccess");
+
+    /* ---- Toggle forms ---- */
+    document.getElementById("showRegister").addEventListener("click", function(e) {
+      e.preventDefault();
+      hide(loginForm);
+      hide(loginError);
+      show(registerForm);
+      document.getElementById("regUser").focus();
+    });
+
+    document.getElementById("showLogin").addEventListener("click", function(e) {
+      e.preventDefault();
+      hide(registerForm);
+      hide(regError);
+      hide(regSuccess);
+      show(loginForm);
+      document.getElementById("loginUser").focus();
+    });
+
+    /* ---- Login ---- */
+    loginForm.addEventListener("submit", function(e) {
       e.preventDefault();
       var user = document.getElementById("loginUser").value.trim();
       var pass = document.getElementById("loginPass").value.trim();
@@ -78,15 +134,96 @@
       if (user === "admin" && pass === "admin") {
         localStorage.setItem("ch-logged", "true");
         window.location.href = "index.html";
+        return;
+      }
+
+      var found = users.some(function(u) { return u.user === user && u.pass === pass; });
+
+      if (found) {
+        localStorage.setItem("ch-logged", "true");
+        window.location.href = "index.html";
       } else {
-        document.getElementById("loginError").style.display = "block";
+        show(loginError);
       }
     });
 
     document.getElementById("loginPass").addEventListener("keydown", function(e) {
       if (e.key === "Enter") {
-        document.getElementById("loginForm").dispatchEvent(new Event("submit"));
+        loginForm.dispatchEvent(new Event("submit"));
       }
+    });
+
+    /* ---- Register ---- */
+    registerForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var user  = document.getElementById("regUser").value.trim();
+      var pass  = document.getElementById("regPass").value;
+      var pass2 = document.getElementById("regPass2").value;
+
+      hide(regError);
+      hide(regSuccess);
+
+      if (user.length < 3) {
+        regError.textContent = "El usuario debe tener al menos 3 caracteres";
+        show(regError);
+        return;
+      }
+
+      if (pass.length < 4) {
+        regError.textContent = "La contraseña debe tener al menos 4 caracteres";
+        show(regError);
+        return;
+      }
+
+      if (pass !== pass2) {
+        regError.textContent = "Las contraseñas no coinciden";
+        show(regError);
+        return;
+      }
+
+      if (user === "admin") {
+        regError.textContent = "Ese usuario no está disponible";
+        show(regError);
+        return;
+      }
+
+      if (users.some(function(u) { return u.user === user; })) {
+        regError.textContent = "Ese usuario ya existe";
+        show(regError);
+        return;
+      }
+
+      users.push({ user: user, pass: pass });
+      saveUsers();
+
+      regSuccess.textContent = "Cuenta creada exitosamente. Redirigiendo al inicio de sesión...";
+      show(regSuccess);
+
+      document.getElementById("regUser").value = "";
+      document.getElementById("regPass").value = "";
+      document.getElementById("regPass2").value = "";
+
+      setTimeout(function() {
+        registerForm.style.transition = "opacity 0.3s ease";
+        registerForm.style.opacity = "0";
+        setTimeout(function() {
+          hide(registerForm);
+          registerForm.style.opacity = "1";
+          registerForm.style.transition = "";
+          hide(regError);
+          hide(regSuccess);
+          show(loginForm);
+          loginForm.style.transition = "opacity 0.3s ease";
+          loginForm.style.opacity = "0";
+          setTimeout(function() {
+            loginForm.style.opacity = "1";
+            setTimeout(function() {
+              loginForm.style.transition = "";
+            }, 300);
+          }, 20);
+          document.getElementById("loginUser").focus();
+        }, 300);
+      }, 1500);
     });
   </script>
 </body>
